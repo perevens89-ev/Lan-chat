@@ -1,6 +1,7 @@
 LAN Chat — Offline Phone ↔ PC Communication
-A lightweight, offline chat and screenshot‑sharing app that works entirely over your local network (LAN).
-No internet required. No accounts. No cloud. Just your phone and computer talking directly.
+        
+        A lightweight, offline chat and screenshot‑sharing app that works entirely over your local network (LAN).
+        No internet required. No accounts. No cloud. Just your phone and computer talking directly.
 
 Built with FastAPI, WebSockets, and a simple HTML/JS frontend.
 Phone ↔ PC chat over LAN
@@ -37,30 +38,31 @@ On your phone
 Make sure your phone is on the same Wi‑Fi as your computer
 
 Find your computer’s LAN IP:
-ipconfig
-Look for something like:
-IPv4 Address . . . . . . . . . . : 192.168.1.50
-On your phone’s browser, open:
-http://YOUR_COMPUTER_IP:8000
-Example:
-http://192.168.1.50:8000
+
+    ipconfig
+    Look for something like:
+        IPv4 Address . . . . . . . . . . : 192.168.1.50
+    On your phone’s browser, open:
+        http://YOUR_COMPUTER_IP:8000
+    Example:
+        http://192.168.1.50:8000
 Now your phone and computer are connected offline.
 
 Project Structure
-Code
-lan-chat/
-│
-├── server.py
-│
-├── data/
-│   ├── messages.json
-│   ├── collections.json
-│   └── screenshots/
-│
-└── static/
+
+    lan-chat/
+    │
+        ├── server.py
+    │
+        ├── data/
+    │   ├── messages.json
+    │   ├── collections.json
+    │   └── screenshots/
+    │
+        └── static/
     ├── index.html
     ├── app.js
-    └── style.css
+        └── style.css
 
 How It Works
 FastAPI serves the frontend and handles API routes
@@ -78,21 +80,24 @@ Everything stays local — nothing leaves your network.
 Important: Some routers block device‑to‑device traffic
 If your phone cannot connect to the server even though the IP is correct:
 
-Your router may have AP Isolation / Client Isolation enabled
-Some ISP routers enforce this by default
-This prevents devices on Wi‑Fi from reaching each other
+    Your router may have AP Isolation / Client Isolation enabled
+    Some ISP routers enforce this by default
+    This prevents devices on Wi‑Fi from reaching each other
 
 ✔️ Workaround: 
 Use a hotspot instead of your home router:
 
 Option A — Phone hotspot
-Turn on hotspot on your phone
-Connect your PC to the hotspot
-Open the server normally
-Visit http://<PC-IP>:8000 on the phone
+
+    Turn on hotspot on your phone
+    Connect your PC to the hotspot
+    Open the server normally
+    Visit http://<PC-IP>:8000 on the phone
 
 Option B — PC hotspot
-Turn on Windows Mobile Hotspot
-Connect your phone to it
-Visit: http://192.168.137.1:8000
+   
+    Turn on Windows Mobile Hotspot
+    Connect your phone to it
+    Visit: http://192.168.137.1:8000
+    
 This bypasses router isolation completely.
