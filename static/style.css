@@ -1,0 +1,121 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #111827;
+  color: #e5e7eb;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+header {
+  border-bottom: 1px solid #374151;
+  margin-bottom: 1rem;
+}
+
+header h1 {
+  margin: 0;
+}
+
+main {
+  display: flex;
+  gap: 1rem;
+}
+
+.chat {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #374151;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.sidebar {
+  flex: 1;
+  border: 1px solid #374151;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+#messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
+  background: #020617;
+  border-radius: 0.5rem;
+}
+
+.message {
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  position: relative;
+}
+
+.message.from-phone {
+  background: #1d4ed8;
+}
+
+.message.from-pc {
+  background: #4b5563;
+}
+
+.message .from {
+  font-weight: 600;
+}
+
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.input-row input[type="text"] {
+  flex: 1;
+  padding: 0.4rem;
+  border-radius: 0.25rem;
+  border: 1px solid #4b5563;
+  background: #020617;
+  color: #e5e7eb;
+}
+
+button {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.25rem;
+  border: none;
+  background: #10b981;
+  color: #020617;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #059669;
+}
+
+.screenshot {
+  max-width: 100%;
+  border-radius: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.fav-btn {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  background: transparent;
+  color: #fbbf24;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.fav-item {
+  border-bottom: 1px solid #374151;
+  padding: 0.25rem 0;
+}

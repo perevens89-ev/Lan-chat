@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LAN Chat & Screenshots</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>LAN Chat</h1>
+      <p>Phone ↔ Computer, offline, same LAN</p>
+    </header>
+
+    <main>
+      <section class="chat">
+        <div id="messages"></div>
+        <div class="input-row">
+          <input id="textInput" type="text" placeholder="Type a message..." />
+          <button id="sendBtn">Send</button>
+        </div>
+        <div class="input-row">
+          <input id="fileInput" type="file" accept="image/*" />
+          <button id="sendImageBtn">Send Screenshot</button>
+        </div>
+      </section>
+
+      <section class="sidebar">
+        <h2>Favorites</h2>
+        <div id="favorites"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
