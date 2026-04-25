@@ -25,6 +25,7 @@ main {
   gap: 1rem;
 }
 
+/* CHAT PANEL */
 .chat {
   flex: 2;
   display: flex;
@@ -32,44 +33,54 @@ main {
   border: 1px solid #374151;
   border-radius: 0.5rem;
   padding: 0.5rem;
+  background: #0f172a;
 }
 
-.sidebar {
-  flex: 1;
-  border: 1px solid #374151;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
+/* ⭐ SCROLLABLE MESSAGE LIST */
 #messages {
   flex: 1;
   overflow-y: auto;
   padding: 0.5rem;
   background: #020617;
   border-radius: 0.5rem;
+  border: 1px solid #1e293b;
 }
 
+/* ⭐ MESSAGE BUBBLES */
 .message {
   margin-bottom: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.35rem;
   position: relative;
+  max-width: 85%;
+  word-wrap: break-word;
+  line-height: 1.35;
 }
 
+/* Phone messages (blue) */
 .message.from-phone {
   background: #1d4ed8;
+  color: white;
+  align-self: flex-start;
 }
 
+/* PC messages (gray) */
 .message.from-pc {
   background: #4b5563;
+  color: white;
+  align-self: flex-end;
 }
 
+/* Sender label */
 .message .from {
   font-weight: 600;
+  font-size: 0.8rem;
+  opacity: 0.85;
+  display: block;
+  margin-bottom: 2px;
 }
 
+/* INPUT ROWS */
 .input-row {
   display: flex;
   gap: 0.5rem;
@@ -85,6 +96,7 @@ main {
   color: #e5e7eb;
 }
 
+/* BUTTONS */
 button {
   padding: 0.4rem 0.8rem;
   border-radius: 0.25rem;
@@ -92,16 +104,29 @@ button {
   background: #10b981;
   color: #020617;
   cursor: pointer;
+  font-weight: 600;
 }
 
 button:hover {
   background: #059669;
 }
 
+/* SCREENSHOT PREVIEW */
 .screenshot {
   max-width: 100%;
   border-radius: 0.25rem;
   margin-top: 0.25rem;
+}
+
+/* FAVORITES */
+.sidebar {
+  flex: 1;
+  border: 1px solid #374151;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: #0f172a;
 }
 
 .fav-btn {

@@ -4,12 +4,12 @@ import json
 import time
 from pathlib import Path
 from typing import List
+import uuid
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, UploadFile, File
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from PIL import Image
 import uvicorn
 
 # -----------------------------
@@ -23,6 +23,7 @@ MESSAGES_FILE = DATA_DIR / "messages.json"
 COLLECTIONS_FILE = DATA_DIR / "collections.json"
 
 SCREENSHOT_DIR.mkdir(parents=True, exist_ok=True)
+DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 # -----------------------------
 # FastAPI setup
@@ -44,7 +45,7 @@ app.mount("/screenshots", StaticFiles(directory=SCREENSHOT_DIR), name="screensho
 # -----------------------------
 # Helper functions
 # -----------------------------
-def load_json(path: Path) -> List[dict]:
+def load_json(path: Path):
     if not path.exists():
         return []
     try:
@@ -54,7 +55,7 @@ def load_json(path: Path) -> List[dict]:
         return []
 
 
-def save_json(path: Path, data: List[dict]):
+def save_json(path: Path, data):
     with path.open("w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
@@ -108,8 +109,62 @@ async def get_favorites():
 
 @app.post("/api/favorite/{message_id}")
 async def add_favorite(message_id: str):
-    favorites
+    favorites = load_json(COLLECTIONS_FILE)
+    if message_id not in favorites:
+        favorites.append(message_id)
+        save_json(COLLECTIONS_FILE, favorites)
+    return {"status": "ok"}
 
 
+# -----------------------------
+# FIXED: IMAGE UPLOAD ENDPOINT
+# -----------------------------
+@app.post("/api/upload-image")
+async def upload_image(file: UploadFile = File(...)):
+    ext = Path(file.filename).suffix or ".png"
+    filename = f"{uuid.uuid4()}{ext}"
+    filepath = SCREENSHOT_DIR / filename
+
+    with filepath.open("wb") as f:
+        f.write(await file.read())
+
+    return {"url": f"/screenshots/{filename}"}
+
+
+# -----------------------------
+# WebSocket: NORMALIZED MESSAGES
+# -----------------------------
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await manager.connect(websocket)
+    try:
+        while True:
+            incoming = await websocket.receive_json()
+
+            # Normalize message structure
+            msg = {
+                "id": incoming.get("id") or str(time.time_ns()),
+                "from": incoming.get("from", "pc"),
+                "type": incoming.get("type", "text"),
+                "text": incoming.get("text", ""),
+                "url": incoming.get("url"),
+                "timestamp": int(time.time())
+            }
+
+            # Save to history
+            messages = load_json(MESSAGES_FILE)
+            messages.append(msg)
+            save_json(MESSAGES_FILE, messages)
+
+            # Broadcast normalized message
+            await manager.broadcast(msg)
+
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+
+
+# -----------------------------
+# Run server
+# -----------------------------
 if __name__ == "__main__":
     uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=False)

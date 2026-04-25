@@ -14,11 +14,17 @@
 
     <main>
       <section class="chat">
-        <div id="messages"></div>
+
+        <!-- ⭐ Chat message list (scrollable) -->
+        <div id="messages" class="messages"></div>
+
+        <!-- Text input -->
         <div class="input-row">
           <input id="textInput" type="text" placeholder="Type a message..." />
           <button id="sendBtn">Send</button>
         </div>
+
+        <!-- Screenshot upload -->
         <div class="input-row">
           <input id="fileInput" type="file" accept="image/*" />
           <button id="sendImageBtn">Send Screenshot</button>
